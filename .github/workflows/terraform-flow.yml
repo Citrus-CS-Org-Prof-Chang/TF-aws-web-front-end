@@ -1,0 +1,37 @@
+name: Terraform Module CI
+on:
+  pull_request:
+    paths:
+      - '**/*.tf'
+      - '.terraform-docs.yml'
+      - 'README.md'
+      - '.github/workflows/terraform-flow.yml'
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v3
+        with:
+          terraform_version: 1.6.6
+      - name: Terraform format & validate
+        run: |
+          terraform fmt -recursive
+          terraform init -backend=false
+          terraform validate
+
+  docs:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Render terraform-docs
+        uses: terraform-docs/gh-actions@v1.3.0
+        with:
+          config-file: .terraform-docs.yml
+          working-dir: .
+          output-file: README.md
+          output-method: inject
+      - name: Verify README up to date
+        run: git diff --exit-code README.md
