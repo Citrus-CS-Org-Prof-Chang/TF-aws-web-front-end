@@ -33,27 +33,29 @@ module "web_front_end" {
 }
 ```
 
+<!-- BEGIN_TF_DOCS -->
 ## Inputs
 
 | Name | Description | Type | Default | Required |
-|------|-------------|------|---------|----------|
-| app_port | Port the application listens on | number | 80 | no |
-| autoscale_group_min_max | Min/max size for autoscale group | object | n/a | yes |
-| autoscale_group_size | Default size of autoscale group | number | n/a | yes |
-| environment | Environment of all resources | string | n/a | yes |
-| instance_type | Instance type for Autoscale group | string | "t3.micro" | no |
-| launch_template_ami | AMI ID to use for the launch template | string | n/a | yes |
-| prefix | Prefix to use for all resources | string | n/a | yes |
-| public_subnet_ids | List of public subnet IDs | list(string) | n/a | yes |
-| user_data_contents | User data script contents (base64encoded) | string | n/a | yes |
-| vpc_id | VPC ID where resources will be deployed | string | n/a | yes |
+|------|-------------|------|---------|:--------:|
+| [app_port](#input_app_port) | Port the application listens on | `number` | `80` | no |
+| [autoscale_group_min_max](#input_autoscale_group_min_max) | The minimum and maximum size for the autoscale group. | <pre>object({<br>  min = number<br>  max = number<br>})</pre> | n/a | yes |
+| [autoscale_group_size](#input_autoscale_group_size) | Default size of autoscale group. | `number` | n/a | yes |
+| [environment](#input_environment) | Environment of all resources | `string` | n/a | yes |
+| [instance_type](#input_instance_type) | Instance type for Autoscale group | `string` | `"t3.micro"` | no |
+| [launch_template_ami](#input_launch_template_ami) | AMI ID to use for the launch template | `string` | n/a | yes |
+| [prefix](#input_prefix) | Prefix to use for all resources | `string` | n/a | yes |
+| [public_subnet_ids](#input_public_subnet_ids) | List of public subnet IDs | `list(string)` | n/a | yes |
+| [user_data_contents](#input_user_data_contents) | User data script contents for the launch template. | `string` | n/a | yes |
+| [vpc_id](#input_vpc_id) | VPC ID where resources will be deployed | `string` | n/a | yes |
 
 ## Outputs
 
 | Name | Description |
 |------|-------------|
-| autoscaling_group_name | The name of the autoscaling group |
-| lb_public_dns | The public DNS name of the load balancer |
+| [autoscaling_group_name](#output_autoscaling_group_name) | The name of the autoscaling group |
+| [lb_public_dns](#output_lb_public_dns) | The public DNS name of the load balancer |
+<!-- END_TF_DOCS -->
 
 ## Features
 
